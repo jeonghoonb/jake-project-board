@@ -1,0 +1,54 @@
+debug: false
+
+# Springboot Actuator의 모든 EndPoint 사용
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# log level 설정
+logging:
+  level:
+    com.jake.projectboard: debug
+    org.springframework.web.servlet: debug # request, response log
+    org.hibernate.orm.jdbc.bind: trace  # binding parameter log
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/projectBoard
+    username: jake
+    password: jakePassword12#$
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    defer-datasource-initialization: true # Test용 SQL file(data.sql) 사용
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+  h2:
+    console:
+      enabled: true
+  sql:
+    init:
+      mode: always
+
+--- # yaml 파일은 '---'를 사용하여 profile 별로 구분해서 사용 가능
+
+spring:
+  config:
+    activate:
+      on-profile: testdb
+  datasource:
+    url: jdbc:h2:mem:projectBoard;mode=mysql
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+  test:
+    database:
+      replace: none # testdb profile일 때 기본 database로 대체 되는 것 방지하고 커스텀한 설정 사용함 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) 와 같은 의미
