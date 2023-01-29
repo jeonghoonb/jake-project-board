@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,intellij+all,visualstudiocode,eclipse,java,gradle
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,intellij+all,visualstudiocode,eclipse,java,gradle
 
+### Querydsl
+/src/main/generated
+
 ### Eclipse ###
 .metadata
 bin/
